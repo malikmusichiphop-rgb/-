@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#03140e" />
+  <title>۱۳ رجب — جشنِ حیدرؑ | تحفۂ عقیدت از سید بہروز شاہ</title>
+
+  <!-- PWA Mobile Home Screen Icon Support -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="assets/cover.jpg" />
+
+  <!-- Open Graph / WhatsApp Preview -->
+  <meta property="og:title" content="۱۳ رجب — جشنِ حیدرؑ | سید بہروز شاہ" />
+  <meta property="og:description" content="ولادتِ باسعادت حضرت امام علی علیہ السلام کے پرمسرت موقع پر سید بہروز شاہ کی جانب سے ایک نورانی روحانی تحفہ" />
+  <meta property="og:image" content="assets/cover.jpg" />
+  <meta property="og:type" content="website" />
+
+  <!-- Premium Urdu & Arabic Calligraphic Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Gulzar&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Linked Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Hidden Native Audio Element for Your Original Speech -->
+  <audio id="speechAudio" preload="auto" playsinline>
+    <source src="assets/speech.mp3" type="audio/mpeg" />
+  </audio>
+
+  <main id="appShell" class="app-shell">
+
+    <!-- =========================================================
+         SCREEN 1: THE ROYAL OPENING GIFT COVER (پہلا نورانی پردہ)
+         ========================================================= -->
+    <section id="coverScreen" class="screen cover-screen active" aria-label="جشنِ حیدرؑ کا نورانی تحفہ">
+      <!-- Living Ambient Noor Canvas -->
+      <canvas id="coverNoorCanvas" class="bg-canvas"></canvas>
+
+      <!-- Architectural Islamic Arch & Filigree Backdrop -->
+      <div class="cover-architecture" aria-hidden="true">
+        <div class="sacred-halo"></div>
+        <div class="geometric-mandala"></div>
+        <svg class="royal-arch-svg" viewBox="0 0 400 720" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="archGold" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f7e29c" stop-opacity="0.7" />
+              <stop offset="50%" stop-color="#c99b3b" stop-opacity="0.35" />
+              <stop offset="100%" stop-color="#8c6419" stop-opacity="0.75" />
+            </linearGradient>
+          </defs>
+          <path d="M 16 720 L 16 220 Q 16 70 200 22 Q 384 70 384 220 L 384 720" fill="none" stroke="url(#archGold)" stroke-width="2" />
+          <path d="M 28 720 L 28 225 Q 28 84 200 38 Q 372 84 372 225 L 372 720" fill="none" stroke="url(#archGold)" stroke-width="0.9" stroke-dasharray="6 4" />
+        </svg>
+      </div>
+
+      <!-- Top Sacred Inscription -->
+      <header class="cover-header">
+        <div class="rajab-emblem">
+          <span class="star-ornament">✦</span>
+          <span class="rajab-date">۱۳ رجب المرجب</span>
+          <span class="star-ornament">✦</span>
+        </div>
+        <h1 class="main-title">جشنِ حیدرؑ</h1>
+        <p class="sub-blessing">ولادتِ باسعادت حضرت امام علی علیہ السلام</p>
+      </header>
+
+      <!-- Centerpiece: Interactive Portrait of Syed Behroz Shah with Prominent Play Action -->
+      <div class="portrait-sanctuary">
+        <button id="openGiftBtn" class="portrait-trigger" type="button" aria-label="تحفہ کھولنے اور اسپیچ سننے کے لیے تصویر پر کلک کریں">
+          <!-- Rotating Noor Rings -->
+          <span class="noor-orbit orbit-outer" aria-hidden="true"></span>
+          <span class="noor-orbit orbit-inner" aria-hidden="true"></span>
+
+          <!-- Ornamental Mehrab Frame -->
+          <div class="mehrab-frame">
+            <img
+              id="coverPortraitImg"
+              src="assets/cover.jpg"
+              alt="سید بہروز شاہ"
+              class="portrait-photo"
+              onerror="window.handleMissingImage(this, true)"
+            />
+            <div class="portrait-vignette"></div>
+          </div>
+
+          <!-- Integrated Luminous Play Medallion (Clearly indicating tap to open gift) -->
+          <div class="play-medallion" aria-hidden="true">
+            <span class="medallion-ripple"></span>
+            <svg viewBox="0 0 24 24" class="play-icon">
+              <path d="M8 5.5v13l10.5-6.5L8 5.5z" fill="currentColor" />
+            </svg>
+          </div>
+        </button>
+
+        <div class="tap-invitation-box">
+          <span class="pulse-dot"></span>
+          <span class="tap-text">تحفہ کھولنے اور اسپیچ سننے کے لیے یہاں چھوئیں</span>
+        </div>
+      </div>
+
+      <!-- Bottom Dedication -->
+      <footer class="cover-footer">
+        <p class="gift-from-label">خصوصی روحانی ہدیہ از جانب</p>
+        <h2 class="murshid-name">سید بہروز شاہ</h2>
+      </footer>
+    </section>
+
+    <!-- =========================================================
+         SCREEN 2: LIVING NOORANI SANCTUARY (اندرونی چلتا پھرتا نورانی جہاں)
+         ========================================================= -->
+    <section id="experienceScreen" class="screen experience-screen" aria-label="نورانی روحانی سفر">
+
+      <!-- FOUR LIVING ATMOSPHERIC WORLDS (چار زندہ اور متحرک نورانی دنیائیں) -->
+      <div id="worldStage" class="world-stage">
+        <!-- World 1: Gate of Light (بابِ نور و تجلیات) -->
+        <div id="world-1" class="noor-world world-gate active">
+          <div class="gate-beams"></div>
+          <div class="gate-arch-layers">
+            <div class="arch-layer layer-1"></div>
+            <div class="arch-layer layer-2"></div>
+            <div class="arch-layer layer-3"></div>
+          </div>
+        </div>
+
+        <!-- World 2: Golden Dawn (صبحِ زرّیں و بہارِ عقیدت) -->
+        <div id="world-2" class="noor-world world-dawn">
+          <div class="dawn-sunburst"></div>
+          <div class="dawn-clouds"></div>
+          <div class="floating-petals-layer" id="petalsContainer"></div>
+        </div>
+
+        <!-- World 3: River of Light (دریائے نور و کہکشاں) -->
+        <div id="world-3" class="noor-world world-river">
+          <svg class="river-ribbons-svg" viewBox="0 0 400 800" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="goldRibbon1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f9e29c" stop-opacity="0" />
+                <stop offset="50%" stop-color="#f5d061" stop-opacity="0.55" />
+                <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="goldRibbon2" x1="100%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#10b981" stop-opacity="0" />
+                <stop offset="50%" stop-color="#e5b84b" stop-opacity="0.45" />
+                <stop offset="100%" stop-color="#f9e29c" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <path class="ribbon-wave wave-1" d="M-50,150 Q150,50 450,200 T450,500" fill="none" stroke="url(#goldRibbon1)" stroke-width="28" />
+            <path class="ribbon-wave wave-2" d="M-50,350 Q220,480 450,300 T450,700" fill="none" stroke="url(#goldRibbon2)" stroke-width="22" />
+            <path class="ribbon-wave wave-3" d="M-50,580 Q180,440 450,620" fill="none" stroke="url(#goldRibbon1)" stroke-width="14" />
+          </svg>
+        </div>
+
+        <!-- World 4: Garden of Love (گلشنِ حیدرؑ و چراغاں) -->
+        <div id="world-4" class="noor-world world-garden">
+          <div class="moonlight-glow"></div>
+          <div class="lanterns-canopy">
+            <div class="hanging-lantern lantern-1"><span></span></div>
+            <div class="hanging-lantern lantern-2"><span></span></div>
+            <div class="hanging-lantern lantern-3"><span></span></div>
+          </div>
+          <div class="water-reflection-pool"></div>
+        </div>
+
+        <!-- Interactive Dynamic Light & Noor Particle Layer -->
+        <canvas id="livingNoorCanvas" class="bg-canvas"></canvas>
+      </div>
+
+      <!-- Top Minimal Header & Scene Indicator -->
+      <header class="sanctuary-topbar">
+        <div class="scene-badge">
+          <span class="scene-dot"></span>
+          <span id="sceneTitleText">بابِ نور و تجلیات</span>
+        </div>
+
+        <!-- Minimal Audio Control -->
+        <button id="audioToggleBtn" class="mini-audio-btn" type="button" aria-label="آواز روکیں یا چلائیں">
+          <span class="equalizer-bars" id="eqBars">
+            <i></i><i></i><i></i>
+          </span>
+          <span id="audioBtnLabel" class="audio-btn-text">جاری ہے</span>
+        </button>
+      </header>
+
+      <!-- Subtle Audio Retry Banner (Only shown if browser blocks autoplay) -->
+      <div id="audioRetryBanner" class="audio-retry-banner hidden">
+        <button id="retryAudioBtn" type="button" class="retry-pill">
+          <span>🔊 آواز چلانے کے لیے یہاں چھوئیں</span>
+        </button>
+      </div>
+
+      <!-- CENTER STAGE: STRICT NON-OVERLAPPING PHOTO + NASIHAT LAYOUT -->
+      <div class="stage-content">
+
+        <!-- TOP: MURSHID'S ROYAL PORTRAIT STAGE -->
+        <div class="photo-showcase-wrapper">
+          <div id="photoCard" class="royal-photo-frame anim-zoom">
+            <!-- Ornate Corner Filigree -->
+            <span class="corner-ornament top-right"></span>
+            <span class="corner-ornament top-left"></span>
+            <span class="corner-ornament bottom-right"></span>
+            <span class="corner-ornament bottom-left"></span>
+
+            <!-- Moving Noor Shimmer Across Frame -->
+            <div class="frame-noor-sweep"></div>
+
+            <div class="photo-inner-box">
+              <img
+                id="slidePhoto"
+                src="assets/photo1.jpg"
+                alt="سید بہروز شاہ"
+                class="slide-photo-img"
+                onerror="window.handleMissingImage(this, false)"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- ORNAMENTAL GOLDEN DIVIDER -->
+        <div class="sacred-divider" aria-hidden="true">
+          <span class="divider-line"></span>
+          <span class="divider-jewel">❖</span>
+          <span class="divider-line"></span>
+        </div>
+
+        <!-- BOTTOM: DEDICATED URDU NASIHAT SANCTUARY (Zero Overlap) -->
+        <div class="nasihat-sanctuary">
+          <div id="nasihatCard" class="nasihat-card">
+            <span id="nasihatTheme" class="nasihat-theme">محبت و اخلاص</span>
+            <p id="nasihatText" class="nasihat-text">
+              دلوں کو جوڑنا اور مخلوقِ خدا سے بے لوث محبت کرنا ہی اصل روحانیت ہے۔
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Subtle Timeline Progress -->
+      <footer class="sanctuary-footer">
+        <div class="progress-track">
+          <div id="speechProgressFill" class="progress-fill"></div>
+        </div>
+        <div class="footer-meta">
+          <span class="footer-occasion">۱۳ رجب — جشنِ حیدرؑ</span>
+          <span id="slideCounter" class="slide-counter">۱ / ۶</span>
+        </div>
+      </footer>
+    </section>
+
+    <!-- =========================================================
+         SCREEN 3: GRAND FINALE BLESSING (اختتامی دعائیہ منظر)
+         ========================================================= -->
+    <section id="finaleScreen" class="screen finale-screen" aria-label="اختتامی مبارکباد اور دعا">
+      <canvas id="finaleNoorCanvas" class="bg-canvas"></canvas>
+
+      <div class="finale-container">
+        <!-- Last Photo Glowing Gracefully -->
+        <div class="finale-portrait-wrap">
+          <div class="finale-noor-aura"></div>
+          <div class="finale-frame">
+            <img
+              id="finalePhoto"
+              src="assets/photo6.jpg"
+              alt="سید بہروز شاہ"
+              class="finale-photo-img"
+              onerror="window.handleMissingImage(this, false)"
+            />
+          </div>
+        </div>
+
+        <!-- Sacred Blessing Message -->
+        <div class="finale-message-box">
+          <div class="finale-ornament">❁ ✦ ❁</div>
+          <h2 class="finale-heading">جشنِ ولادتِ مولا علی علیہ السلام مبارک</h2>
+          <p class="finale-subtext">آپ سب کے لیے محبت، خوشیاں اور دعائیں</p>
+          <div class="finale-signature-line"></div>
+          <p class="finale-sender">سید بہروز شاہ</p>
+        </div>
+
+        <!-- Two Simple Action Buttons -->
+        <div class="finale-actions">
+          <button id="replayBtn" type="button" class="action-btn btn-gold">
+            <span>دوبارہ سنیں اور دیکھیں</span>
+          </button>
+          <button id="shareBtn" type="button" class="action-btn btn-emerald">
+            <span>یہ تحفہ آگے شیئر کریں</span>
+          </button>
+        </div>
+        <p id="shareFeedback" class="share-feedback" aria-live="polite"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Linked JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
