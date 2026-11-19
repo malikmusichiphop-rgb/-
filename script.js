@@ -1,11 +1,11 @@
 /* =========================================================
    13 RAJAB — JASHN-E-HAIDER | JAVASCRIPT ENGINE
-   Dedicated to Syed Behroz Shah
+   Dedicated to Syed Behroz Shah Shamsi Sarkar
    ========================================================= */
 
 const CONFIG = {
   totalSlides: 6,
-  slideDuration: 12000, // Approximate time per photo if speech length varies
+  slideDuration: 12000, // Approximate time per slide if speech length varies
   nasihats: [
     { theme: "محبت و اخلاص", text: "دلوں کو جوڑنا اور مخلوقِ خدا سے بے لوث محبت کرنا ہی اصل روحانیت ہے۔" },
     { theme: "صبر و استقامت", text: "مشکلات میں صبر کا دامن تھامنا اور اچھے وقت کی امید رکھنا مومن کی شان ہے۔" },
@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentSlide = 1;
   let slideshowTimer = null;
-  let progressInterval = null;
   let isPlaying = false;
 
   // Global Fallback for Missing Images
@@ -55,8 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
       fallbackDiv.style.cssText = "width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#031f16,#020d0a);color:#f7e29c;text-align:center;padding:15px;";
       fallbackDiv.innerHTML = `
         <span style="font-size:24px;margin-bottom:6px;">✦ ؑ ✦</span>
-        <span style="font-size:13px;font-weight:700;">سید بہروز شاہ</span>
-        <span style="font-size:10px;color:#d1c7b7;margin-top:4px;">${isCover ? 'جشنِ حیدرؑ تحفہ' : 'رَحمة للعالمین'}</span>
+        <span style="font-size:13px;font-weight:700;">سید بہروز شاہ شمسی سرکار</span>
+        <span style="font-size:10px;color:#d1c7b7;margin-top:4px;">${isCover ? 'جشنِ حیدرؑ تحفہ' : '۱۳ رجب — جشنِ حیدرؑ'}</span>
       `;
       parent.appendChild(fallbackDiv);
     }
@@ -123,10 +122,14 @@ document.addEventListener('DOMContentLoaded', () => {
     speechAudio.play().then(() => {
       audioRetryBanner.classList.add('hidden');
       isPlaying = true;
+      audioBtnLabel.textContent = 'جاری ہے';
+      eqBars.style.opacity = '1';
     }).catch(e => console.log(e));
   });
 
   function startExperience() {
+    if (slideshowTimer) clearInterval(slideshowTimer);
+    currentSlide = 1;
     coverScreen.classList.remove('active');
     experienceScreen.classList.add('active');
 
@@ -134,10 +137,13 @@ document.addEventListener('DOMContentLoaded', () => {
     speechAudio.play().then(() => {
       isPlaying = true;
       audioRetryBanner.classList.add('hidden');
+      audioBtnLabel.textContent = 'جاری ہے';
+      eqBars.style.opacity = '1';
     }).catch(err => {
       console.log("Autoplay restricted, showing retry banner:", err);
       audioRetryBanner.classList.remove('hidden');
       isPlaying = false;
+      audioBtnLabel.textContent = 'رکا ہوا ہے';
     });
 
     startSlideshowSequence();
@@ -146,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function startSlideshowSequence() {
     updateSlideData(currentSlide);
 
-    // Audio progress sync or timed fallback
+    // Audio progress sync
     speechAudio.ontimeupdate = () => {
       if (speechAudio.duration) {
         const percent = (speechAudio.currentTime / speechAudio.duration) * 100;
@@ -158,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
       triggerFinale();
     };
 
-    // Backup interval if audio isn't loaded or finishes earlier
+    // Cycle nasihats and worlds while keeping inner-photo.jpg displayed
     slideshowTimer = setInterval(() => {
       currentSlide++;
       if (currentSlide > CONFIG.totalSlides) {
@@ -171,12 +177,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateSlideData(slideNum) {
-    // Update photo with smooth fade
-    slidePhoto.style.opacity = '0';
-    setTimeout(() => {
-      slidePhoto.src = `assets/photo${slideNum}.jpg`;
-      slidePhoto.style.opacity = '1';
-    }, 300);
+    // Keep inner-photo.jpg steady with a gentle نورانی pulse
+    if (slidePhoto && !slidePhoto.getAttribute('src').includes('inner-photo.jpg')) {
+      slidePhoto.src = 'assets/inner-photo.jpg';
+    }
 
     // Update Nasihat
     const nasihat = CONFIG.nasihats[(slideNum - 1) % CONFIG.nasihats.length];
@@ -236,12 +240,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Replay Button
   replayBtn.addEventListener('click', () => {
+    if (slideshowTimer) clearInterval(slideshowTimer);
     currentSlide = 1;
     speechAudio.currentTime = 0;
     finaleScreen.classList.remove('active');
     experienceScreen.classList.add('active');
-    speechAudio.play();
-    isPlaying = true;
+    speechAudio.play().then(() => {
+      isPlaying = true;
+      audioBtnLabel.textContent = 'جاری ہے';
+      eqBars.style.opacity = '1';
+    }).catch(() => {
+      isPlaying = false;
+    });
     startSlideshowSequence();
   });
 
@@ -249,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
   shareBtn.addEventListener('click', async () => {
     const shareData = {
       title: '۱۳ رجب — جشنِ حیدرؑ',
-      text: 'ولادتِ باسعادت حضرت امام علی علیہ السلام کے پرمسرت موقع پر سید بہروز شاہ کی جانب سے ایک نورانی روحانی تحفہ:',
+      text: 'ولادتِ باسعادت حضرت امام علی علیہ السلام کے پرمسرت موقع پر سید بہروز شاہ شمسی سرکار کی جانب سے ایک نورانی روحانی تحفہ:',
       url: window.location.href
     };
 
