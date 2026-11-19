@@ -1,6 +1,6 @@
 /* =========================================================
    13 RAJAB — JASHN-E-HAIDER | ROYAL EMERALD & GOLD STYLESHEET
-   Dedicated to Syed Behroz Shah
+   Dedicated to Syed Behroz Shah Shamsi Sarkar
    ========================================================= */
 
 :root {
@@ -8,15 +8,15 @@
   --emerald-deep: #03140e;
   --emerald-card: rgba(4, 25, 18, 0.75);
   --emerald-border: rgba(212, 175, 55, 0.35);
-  
+
   --gold-primary: #d4af37;
   --gold-light: #f7e29c;
   --gold-dim: #8c6419;
   --gold-glow: rgba(212, 175, 55, 0.45);
-  
+
   --ivory: #faf6ee;
   --ivory-dim: #d1c7b7;
-  
+
   --font-urdu: 'Noto Nastaliq Urdu', 'Gulzar', serif;
   --font-arabic: 'Amiri', serif;
 }
@@ -63,7 +63,7 @@ html, body {
   padding: 24px 20px env(safe-area-inset-bottom, 24px) 20px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
 }
 
@@ -207,6 +207,9 @@ html, body {
   border: none;
   cursor: pointer;
   padding: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .noor-orbit {
@@ -252,6 +255,7 @@ html, body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   border-top-left-radius: 92px;
   border-top-right-radius: 92px;
   border-bottom-left-radius: 18px;
@@ -283,6 +287,7 @@ html, body {
   color: var(--emerald-dark);
   box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6);
   transition: transform 0.3s ease;
+  z-index: 4;
 }
 
 .portrait-trigger:hover .play-medallion,
@@ -343,6 +348,9 @@ html, body {
   position: relative;
   z-index: 2;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .gift-from-label {
@@ -356,6 +364,14 @@ html, body {
   font-weight: 700;
   color: var(--gold-light);
   text-shadow: 0 2px 10px rgba(212,175,55,0.3);
+}
+
+.tahir-nazir-line {
+  font-size: 11px;
+  color: var(--ivory-dim);
+  margin-top: 4px;
+  letter-spacing: 0.4px;
+  opacity: 0.88;
 }
 
 /* =========================================================
@@ -377,7 +393,7 @@ html, body {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 2s ease-in-out;
+  transition: opacity 1.5s ease-in-out;
 }
 
 .noor-world.active {
@@ -650,6 +666,7 @@ html, body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 /* Ornamental Divider */
@@ -801,6 +818,7 @@ html, body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   border-radius: 10px;
 }
 

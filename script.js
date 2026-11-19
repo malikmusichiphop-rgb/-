@@ -42,10 +42,18 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentSlide = 1;
   let slideshowTimer = null;
   let isPlaying = false;
+  let audioTriedRootFallback = false;
 
-  // Global Fallback for Missing Images
+  // Fallback for Missing Images: tries root path if assets/ fails before showing fallback
   window.handleMissingImage = function(imgElement, isCover) {
-    console.warn("Asset missing, rendering sacred calligraphic fallback.");
+    const currentSrc = imgElement.getAttribute('src') || '';
+    if (currentSrc.startsWith('assets/') && !imgElement.dataset.triedRoot) {
+      imgElement.dataset.triedRoot = 'true';
+      imgElement.src = currentSrc.replace(/^assets\//, '');
+      return;
+    }
+
+    console.warn("Asset missing, rendering sacred calligraphic fallback:", currentSrc);
     imgElement.style.display = 'none';
     const parent = imgElement.parentElement;
     if (!parent.querySelector('.svg-fallback')) {
@@ -55,11 +63,27 @@ document.addEventListener('DOMContentLoaded', () => {
       fallbackDiv.innerHTML = `
         <span style="font-size:24px;margin-bottom:6px;">✦ ؑ ✦</span>
         <span style="font-size:13px;font-weight:700;">سید بہروز شاہ شمسی سرکار</span>
-        <span style="font-size:10px;color:#d1c7b7;margin-top:4px;">${isCover ? 'جشنِ حیدرؑ تحفہ' : '۱۳ رجب — جشنِ حیدرؑ'}</span>
+        <span style="font-size:10px;color:#d1c7b7;margin-top:4px;">${isCover ? 'جشنِ حیدرؑ' : '۱۳ رجب — جشنِ حیدرؑ'}</span>
       `;
       parent.appendChild(fallbackDiv);
     }
   };
+
+  // Ensure inner-photo.jpg is set on load
+  if (slidePhoto) {
+    slidePhoto.src = 'assets/inner-photo.jpg';
+  }
+
+  // If assets/speech.mp3 errors, try root speech.mp3 once
+  if (speechAudio) {
+    speechAudio.addEventListener('error', () => {
+      if (!audioTriedRootFallback) {
+        audioTriedRootFallback = true;
+        speechAudio.src = 'speech.mp3';
+        speechAudio.load();
+      }
+    }, true);
+  }
 
   // Canvas Noor Particles Animation
   function initNoorCanvas(canvasId) {
@@ -95,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         p.y += p.speedY;
         p.x += p.speedX;
         if (p.y < 0) { p.y = height; p.x = Math.random() * width; }
-        
+
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
@@ -113,18 +137,35 @@ document.addEventListener('DOMContentLoaded', () => {
   initNoorCanvas('livingNoorCanvas');
   initNoorCanvas('finaleNoorCanvas');
 
-  // One-Tap Opening Event
+  function playSpeechAudio() {
+    if (!speechAudio) return Promise.resolve();
+    if (!speechAudio.currentSrc && !speechAudio.src) {
+      speechAudio.src = 'assets/speech.mp3';
+      speechAudio.load();
+    } else if (speechAudio.readyState === 0) {
+      speechAudio.load();
+    }
+
+    return speechAudio.play().then(() => {
+      isPlaying = true;
+      audioRetryBanner.classList.add('hidden');
+      audioBtnLabel.textContent = 'جاری ہے';
+      eqBars.style.opacity = '1';
+    }).catch(err => {
+      console.warn("Audio playback issue:", err);
+      audioRetryBanner.classList.remove('hidden');
+      isPlaying = false;
+      audioBtnLabel.textContent = 'رکا ہوا ہے';
+    });
+  }
+
+  // One-Tap Opening Event on Play Portrait / Button
   openGiftBtn.addEventListener('click', () => {
     startExperience();
   });
 
   retryAudioBtn.addEventListener('click', () => {
-    speechAudio.play().then(() => {
-      audioRetryBanner.classList.add('hidden');
-      isPlaying = true;
-      audioBtnLabel.textContent = 'جاری ہے';
-      eqBars.style.opacity = '1';
-    }).catch(e => console.log(e));
+    playSpeechAudio();
   });
 
   function startExperience() {
@@ -133,18 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
     coverScreen.classList.remove('active');
     experienceScreen.classList.add('active');
 
-    // Attempt audio playback
-    speechAudio.play().then(() => {
-      isPlaying = true;
-      audioRetryBanner.classList.add('hidden');
-      audioBtnLabel.textContent = 'جاری ہے';
-      eqBars.style.opacity = '1';
-    }).catch(err => {
-      console.log("Autoplay restricted, showing retry banner:", err);
-      audioRetryBanner.classList.remove('hidden');
-      isPlaying = false;
-      audioBtnLabel.textContent = 'رکا ہوا ہے';
-    });
+    // Start speech immediately on user tap
+    playSpeechAudio();
 
     startSlideshowSequence();
   }
@@ -177,8 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateSlideData(slideNum) {
-    // Keep inner-photo.jpg steady with a gentle نورانی pulse
-    if (slidePhoto && !slidePhoto.getAttribute('src').includes('inner-photo.jpg')) {
+    // Keep inner-photo.jpg displayed across inner slides
+    if (slidePhoto && !slidePhoto.dataset.triedRoot && !slidePhoto.getAttribute('src').includes('inner-photo.jpg')) {
       slidePhoto.src = 'assets/inner-photo.jpg';
     }
 
@@ -194,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateActiveWorld(slideNum) {
     document.querySelectorAll('.noor-world').forEach(w => w.classList.remove('active'));
-    
+
     let worldId, titleText;
     if (slideNum <= 1) {
       worldId = 'world-1';
@@ -222,12 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
       audioBtnLabel.textContent = 'رکا ہوا ہے';
       eqBars.style.opacity = '0.3';
     } else {
-      speechAudio.play().then(() => {
-        isPlaying = true;
-        audioBtnLabel.textContent = 'جاری ہے';
-        eqBars.style.opacity = '1';
-        audioRetryBanner.classList.add('hidden');
-      });
+      playSpeechAudio();
     }
   });
 
@@ -245,13 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     speechAudio.currentTime = 0;
     finaleScreen.classList.remove('active');
     experienceScreen.classList.add('active');
-    speechAudio.play().then(() => {
-      isPlaying = true;
-      audioBtnLabel.textContent = 'جاری ہے';
-      eqBars.style.opacity = '1';
-    }).catch(() => {
-      isPlaying = false;
-    });
+    playSpeechAudio();
     startSlideshowSequence();
   });
 
@@ -271,7 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Share canceled or failed', err);
       }
     } else {
-      // Fallback: Copy Link
       navigator.clipboard.writeText(window.location.href).then(() => {
         shareFeedback.textContent = 'لنک کاپی ہو گیا! اب آپ اسے واٹس ایپ پر شیئر کر سکتے ہیں۔';
         setTimeout(() => { shareFeedback.textContent = ''; }, 4000);
