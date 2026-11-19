@@ -8,12 +8,12 @@
 
   <!-- PWA Mobile Home Screen Icon Support -->
   <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="assets/cover.jpg" />
+  <link rel="apple-touch-icon" href="assets/home-cover.jpg" />
 
   <!-- Open Graph / WhatsApp Preview -->
   <meta property="og:title" content="۱۳ رجب — جشنِ حیدرؑ | سید بہروز شاہ شمسی سرکار" />
   <meta property="og:description" content="ولادتِ باسعادت حضرت امام علی علیہ السلام کے پرمسرت موقع پر سید بہروز شاہ شمسی سرکار کی جانب سے ایک نورانی روحانی تحفہ" />
-  <meta property="og:image" content="assets/cover.jpg" />
+  <meta property="og:image" content="assets/home-cover.jpg" />
   <meta property="og:type" content="website" />
 
   <!-- Premium Urdu & Arabic Calligraphic Fonts -->
@@ -68,7 +68,7 @@
         <p class="sub-blessing">ولادتِ باسعادت حضرت امام علی علیہ السلام</p>
       </header>
 
-      <!-- Centerpiece: Interactive Portrait of Syed Behroz Shah Shamsi Sarkar -->
+      <!-- Centerpiece: Interactive Portrait (Uses home-cover.jpg) -->
       <div class="portrait-sanctuary">
         <button id="openGiftBtn" class="portrait-trigger" type="button" aria-label="تحفہ کھولنے اور اسپیچ سننے کے لیے تصویر پر کلک کریں">
           <!-- Rotating Noor Rings -->
@@ -79,7 +79,7 @@
           <div class="mehrab-frame">
             <img
               id="coverPortraitImg"
-              src="assets/cover.jpg"
+              src="assets/home-cover.jpg"
               alt="سید بہروز شاہ شمسی سرکار"
               class="portrait-photo"
               onerror="window.handleMissingImage(this, true)"
@@ -102,11 +102,11 @@
         </div>
       </div>
 
-      <!-- Bottom Dedication (Only on Home Screen with your exact name) -->
+      <!-- Bottom Dedication with Your Exact Name -->
       <footer class="cover-footer">
         <p class="gift-from-label">خصوصی روحانی ہدیہ از جانب</p>
         <h2 class="murshid-name">سید بہروز شاہ شمسی سرکار</h2>
-        <p class="tahir-nazir-line" style="font-size: 11px; color: #d1c7b7; margin-top: 4px; letter-spacing: 0.5px;">طاہر نوکر پاک حسنینؑ کی آل کا</p>
+        <p class="tahir-nazir-line" style="font-size: 11px; color: #d1c7b7; margin-top: 4px; letter-spacing: 0.5px;">طاہر نذیر نوکر پاک حسنینؑ کی آل کا</p>
       </footer>
     </section>
 
@@ -182,7 +182,7 @@
         </button>
       </div>
 
-      <!-- CENTER STAGE: PHOTO + NASIHAT -->
+      <!-- CENTER STAGE: PHOTO + NASIHAT (Uses inner-photo.jpg and cycles nasihats) -->
       <div class="stage-content">
         <div class="photo-showcase-wrapper">
           <div id="photoCard" class="royal-photo-frame anim-zoom">
@@ -194,7 +194,7 @@
             <div class="photo-inner-box">
               <img
                 id="slidePhoto"
-                src="assets/photo1.jpg"
+                src="assets/inner-photo.jpg"
                 alt="سید بہروز شاہ شمسی سرکار"
                 class="slide-photo-img"
                 onerror="window.handleMissingImage(this, false)"
@@ -225,7 +225,7 @@
         </div>
         <div class="footer-meta">
           <span class="footer-occasion">۱۳ رجب — جشنِ حیدرؑ</span>
-          <span id="slideCounter" class="slide-counter">۱ / ۶</span>
+          <span id="slideCounter" class="slide-counter">۱ / ۳</span>
         </div>
       </footer>
     </section>
@@ -240,9 +240,10 @@
         <div class="finale-portrait-wrap">
           <div class="finale-noor-aura"></div>
           <div class="finale-frame">
+            <!-- Uses finale.jpg -->
             <img
               id="finalePhoto"
-              src="assets/photo6.jpg"
+              src="assets/finale.jpg"
               alt="سید بہروز شاہ شمسی سرکار"
               class="finale-photo-img"
               onerror="window.handleMissingImage(this, false)"
